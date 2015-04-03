@@ -1,0 +1,73 @@
+#include<stdio.h>
+#include<conio.h>
+
+void display();
+void getdata();
+void waitTime();
+void turnAroundTime();
+
+int n,b[100];
+
+int main()
+{
+    printf("***** FCFS ( FIRST COME FIRST SERVE ) SCHEDULING ******\n\n");
+
+    getdata();
+    display();
+    waitTime();
+    turnAroundTime();
+    getch();
+}
+
+void getdata()
+{   
+    char c;
+    printf("Enter the number of process ");
+    scanf("%d",&n);
+
+    
+
+    for(int i=0; i<n; i++)
+    {
+          printf("Enter the %d process burst time : ",i+1);
+          scanf("%d",&b[i]);
+          
+    }
+}
+
+void display()
+{
+     printf("\nPROCESS\tBURST TIME\n");
+     for(int i=0; i<n; i++)
+     {
+             printf("    %d\t      %d \n",i+1,b[i]);
+     }
+}
+
+void waitTime()
+{
+     int w[100];
+     float totalWait=0;
+     w[0]=0;
+     for(int i=1; i<n; i++)
+     {
+           w[i]=b[i-1]+w[i-1];
+           totalWait=w[i]+totalWait;
+     }
+     printf("\nTotal Waiting time = %f",totalWait);
+ 
+}
+
+void turnAroundTime()
+{
+     int tat[100];
+     float totalTat=0;
+     tat[-1]=0;
+     for(int i=0; i<n; i++)
+     {
+             tat[i]=b[i]+tat[i-1];               
+             totalTat=totalTat+tat[i];
+     }
+     printf("\n\nTotal Turn Around Time(TAT) = %f",totalTat);
+
+}
